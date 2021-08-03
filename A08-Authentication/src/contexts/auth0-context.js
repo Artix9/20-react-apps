@@ -1,7 +1,9 @@
 import React, { createContext, useEffect, useState } from "react";
 import createAuth0Client from "@auth0/auth0-spa-js";
+import { useContext } from "react";
 
 export const Auth0Context = createContext();
+export const useAuth0 = () => useContext(Auth0Context);
 
 export function Auth0Provider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -48,6 +50,8 @@ export function Auth0Provider({ children }) {
 
     initAuth0();
   }, []);
+
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <Auth0Context.Provider

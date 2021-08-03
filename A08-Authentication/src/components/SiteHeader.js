@@ -1,4 +1,3 @@
-import userEvent from "@testing-library/user-event";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Auth0Context } from "../contexts/auth0-context";
