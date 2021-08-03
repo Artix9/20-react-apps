@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SiteHeader from "./components/SiteHeader";
 import Dashboard from "./pages/Dashboard";
@@ -8,9 +8,25 @@ import "./App.css";
 import { useAuth0 } from "./contexts/auth0-context";
 
 export default function App() {
-  const auth0 = useAuth0();
+  const { getToken } = useAuth0();
 
-  console.log(auth0);
+  async function getUserData() {
+    const token = await getToken();
+
+    console.log(token);
+
+    const response = await fetch(`http://example.com/api`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    const data = await response.json();
+
+    // we have data!
+  }
+
+  useEffect(() => {
+    getUserData();
+  }, []);
 
   return (
     <Router>
