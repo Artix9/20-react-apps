@@ -1,31 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SiteHeader from "./components/SiteHeader";
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
 import "./App.css";
-import createAuth0Client from "@auth0/auth0-spa-js";
+import { Auth0Context } from "./contexts/auth0-context";
 
 export default function App() {
-  // dev-sebl5pdm.jp.auth0.com
-  // KAyzB6yF8ohJ1WOkJzCezwmDNsVvSplb
+  const auth0 = useContext(Auth0Context);
 
-  useEffect(() => {
-    async function initAuth0() {
-      const auth0 = await createAuth0Client({
-        domain: "dev-sebl5pdm.jp.auth0.com",
-        client_id: "KAyzB6yF8ohJ1WOkJzCezwmDNsVvSplb",
-      });
-
-      const isAuthenticated = await auth0.isAuthenticated();
-      console.log(isAuthenticated);
-
-      const user = await auth0.getUser();
-      console.log(user);
-    }
-
-    initAuth0();
-  }, []);
+  console.log(auth0);
 
   return (
     <Router>
