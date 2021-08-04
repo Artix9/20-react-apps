@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useStopwatch } from "react-timer-hook";
 import { useSpeechSynthesis } from "react-speech-kit";
 import "./App.css";
-import { div } from "prelude-ls";
 
 export default function App() {
   const [timers, setTimers] = useState([
