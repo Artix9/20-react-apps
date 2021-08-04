@@ -1,5 +1,5 @@
-import React from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useStopwatch } from "react-timer-hook";
 import "./App.css";
 
 export default function App() {
@@ -8,6 +8,20 @@ export default function App() {
     { time: 5, text: "hello" },
     { time: 8, text: "whats up" },
   ]);
+  const { seconds, isRunning, start, reset } = useStopwatch();
+
+  useEffect(() => {
+    const foundTimer = timers.find((timer) => timer.time === seconds);
+
+    if (foundTimer) {
+      // this is where we will speak the text
+    }
+
+    // check to see if seconds is greater than the last timers time
+    if (seconds > timers[timers.length - 1].time) reset();
+
+    console.log(foundTimer, seconds);
+  }, [seconds, timers, reset]);
 
   function updateTimers(index, time, text) {
     const newTimers = [...timers];
@@ -43,12 +57,21 @@ export default function App() {
       </div>
 
       {/* seconds */}
-      <h2>0</h2>
+      <h2>{seconds}</h2>
 
       {/* buttons */}
       <div className="buttons">
-        <button className="start-button">Start</button>
-        <button className="stop-button">Stop</button>
+        {!isRunning && (
+          <button className="start-button" onClick={start}>
+            Start
+          </button>
+        )}
+
+        {isRunning && (
+          <button className="stop-button" onClick={reset}>
+            Stop
+          </button>
+        )}
       </div>
     </div>
   );
@@ -67,7 +90,7 @@ function TimerSlot({ index, timer, updateTimers }) {
       <input
         type="number"
         value={time}
-        onChange={(e) => setTime(e.target.value)}
+        onChange={(e) => setTime(+e.target.value)}
         onBlur={handleBlur}
       />
       <input
