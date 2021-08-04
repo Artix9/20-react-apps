@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useStopwatch } from "react-timer-hook";
+import { useSpeechSynthesis } from "react-speech-kit";
 import "./App.css";
+import { div } from "prelude-ls";
 
 export default function App() {
   const [timers, setTimers] = useState([
@@ -9,19 +11,21 @@ export default function App() {
     { time: 8, text: "whats up" },
   ]);
   const { seconds, isRunning, start, reset } = useStopwatch();
+  const { speak, speaking, supported } = useSpeechSynthesis();
+
+  const doReset = useCallback(() => reset(), []);
+  const doSpeak = useCallback((...p) => speak(), []);
 
   useEffect(() => {
     const foundTimer = timers.find((timer) => timer.time === seconds);
 
     if (foundTimer) {
-      // this is where we will speak the text
+      doSpeak({ text: foundTimer.text });
     }
 
     // check to see if seconds is greater than the last timers time
-    if (seconds > timers[timers.length - 1].time) reset();
-
-    console.log(foundTimer, seconds);
-  }, [seconds, timers, reset]);
+    if (seconds > timers[timers.length - 1].time) doReset();
+  }, [seconds, timers, doSpeak, doReset]);
 
   function updateTimers(index, time, text) {
     const newTimers = [...timers];
@@ -34,6 +38,10 @@ export default function App() {
   function addTimer() {
     const newTimers = [...timers, { time: 100, text: "yooo" }];
     setTimers(newTimers);
+  }
+
+  if (!supported) {
+    return <div>Your browser is not supported. Sorry</div>;
   }
 
   return (
@@ -72,6 +80,8 @@ export default function App() {
             Stop
           </button>
         )}
+
+        {speaking && <p>I am speaking...</p>}
       </div>
     </div>
   );
