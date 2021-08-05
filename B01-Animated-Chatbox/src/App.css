@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Chelsea+Market&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Chelsea+Market&display=swap");
 
 * {
   box-sizing: border-box;
 }
 
 body {
-  font-family: 'Chelsea Market';
+  font-family: "Chelsea Market";
   margin: 0;
   padding: 0;
 }
