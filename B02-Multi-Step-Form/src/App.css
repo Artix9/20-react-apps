@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Merriweather&display=swap");
 
 * {
   box-sizing: border-box;
@@ -7,7 +7,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Merriweather', serif;
+  font-family: "Merriweather", serif;
 }
 
 h1,
@@ -46,7 +46,7 @@ h6 {
 }
 
 .step-links:after {
-  content: '';
+  content: "";
   display: block;
   position: absolute;
   height: 2px;
@@ -62,7 +62,7 @@ h6 {
   font-size: 16px;
   padding: 8px 10px;
   margin-right: 10px;
-  font-family: 'Merriweather', serif;
+  font-family: "Merriweather", serif;
   text-decoration: none;
   cursor: pointer;
   position: relative;
@@ -118,9 +118,9 @@ form p {
   width: 100%;
 }
 
-input[type='text'],
-input[type='email'],
-input[type='submit'] {
+input[type="text"],
+input[type="email"],
+input[type="submit"] {
   border: none;
   background: #eee;
   border-radius: 50px;
@@ -129,15 +129,15 @@ input[type='submit'] {
   width: 100%;
   transition: 0.3s ease all;
   font-size: 16px;
-  font-family: 'Merriweather', serif;
+  font-family: "Merriweather", serif;
 }
 
-input[type='text']:focus,
-input[type='email']:focus {
+input[type="text"]:focus,
+input[type="email"]:focus {
   background: #ddd;
 }
 
-input[type='submit'] {
+input[type="submit"] {
   width: 40%;
   margin-left: 60%;
   margin-bottom: 0;
@@ -148,6 +148,6 @@ input[type='submit'] {
   cursor: pointer;
 }
 
-input[type='submit']:hover {
+input[type="submit"]:hover {
   background: #eda27f;
 }
