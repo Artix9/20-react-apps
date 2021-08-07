@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
+import { useSignupForm } from "./SignupFormContext";
 
 export default function ProfileForm() {
   const {
@@ -9,10 +10,10 @@ export default function ProfileForm() {
     formState: { errors },
   } = useForm();
   const history = useHistory();
+  const { profile, setProfile } = useSignupForm();
 
   function onSubmit(data) {
-    // do whatever we need here
-    console.log(data);
+    setProfile(data);
     history.push("/social");
   }
 
@@ -23,6 +24,7 @@ export default function ProfileForm() {
       <input
         type="text"
         placeholder="What's your name?"
+        defaultValue={profile.name}
         {...register("name", { required: true })}
       />
       {errors.name && <p>Name is required.</p>}
@@ -30,6 +32,7 @@ export default function ProfileForm() {
       <input
         type="text"
         placeholder="What's your email?"
+        defaultValue={profile.email}
         {...register("email", {
           required: true,
           pattern:

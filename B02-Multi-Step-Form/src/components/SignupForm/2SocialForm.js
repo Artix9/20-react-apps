@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
+import { useSignupForm } from "./SignupFormContext";
 
 export default function SocialForm() {
   const {
@@ -9,10 +10,10 @@ export default function SocialForm() {
     formState: { errors },
   } = useForm();
   const history = useHistory();
+  const { social, setSocial } = useSignupForm();
 
   function onSubmit(data) {
-    // do whatever we need here
-    console.log(data);
+    setSocial(data);
     history.push("/review");
   }
 
@@ -23,6 +24,7 @@ export default function SocialForm() {
       <input
         type="text"
         placeholder="What's your Twitter?"
+        defaultValue={social.twitter}
         {...register("twitter", { required: true })}
       />
       {errors.twitter && <p>Twitter is required.</p>}
@@ -30,6 +32,7 @@ export default function SocialForm() {
       <input
         type="text"
         placeholder="What's your Facebook?"
+        defaultValue={social.facebook}
         {...register("facebook", {
           required: true,
         })}
