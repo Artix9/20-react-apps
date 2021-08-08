@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import shuffle from "lodash.shuffle";
 import "./App.css";
 
@@ -13,20 +13,47 @@ const pokemon = [
 const doublePokemon = shuffle([...pokemon, ...pokemon]);
 
 export default function App() {
+  const [opened, setOpened] = useState([0, 6]);
+
+  // clear cards after 2 have been selected
+  useEffect(() => {
+    if (opened.length === 2) setTimeout(() => setOpened([]), 800);
+  }, [opened]);
+
+  function flipCard(index) {
+    setOpened((opened) => [...opened, index]);
+  }
+
   return (
     <div className="app">
       <div className="cards">
         {doublePokemon.map((pokemon, index) => {
-          return <PokemonCard key={index} pokemon={pokemon} />;
+          let isFlipped = false;
+
+          // do some logic to check if flipped
+          if (opened.includes(index)) isFlipped = true;
+
+          return (
+            <PokemonCard
+              key={index}
+              index={index}
+              pokemon={pokemon}
+              isFlipped={isFlipped}
+              flipCard={flipCard}
+            />
+          );
         })}
       </div>
     </div>
   );
 }
 
-function PokemonCard({ index, pokemon }) {
+function PokemonCard({ index, pokemon, isFlipped, flipCard }) {
   return (
-    <div className="pokemon-card flipped">
+    <button
+      className={`pokemon-card ${isFlipped ? "flipped" : ""}`}
+      onClick={() => flipCard(index)}
+    >
       <div className="inner">
         <div className="front">
           <img
@@ -37,6 +64,6 @@ function PokemonCard({ index, pokemon }) {
         </div>
         <div className="back">?</div>
       </div>
-    </div>
+    </button>
   );
 }
