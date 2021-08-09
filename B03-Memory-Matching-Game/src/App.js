@@ -31,14 +31,13 @@ export default function App() {
 
   // clear cards after 2 have been selected
   useEffect(() => {
-    if (opened.length === 2) setTimeout(() => setOpened([]), 800);
+    if (opened.length === 2) setTimeout(() => setOpened([]), 300);
   }, [opened]);
 
   // check if there is a winner
-  // useEffect(() => {
-  //   if (matched.length === pokemon.length)
-  //     setTimeout(() => alert("you won!"), 3000);
-  // }, [matched]);
+  useEffect(() => {
+    if (matched.length === pokemon.length) alert("you won!");
+  }, [matched]);
 
   function flipCard(index) {
     setMoves((moves) => moves + 1);
@@ -78,7 +77,7 @@ function PokemonCard({ index, pokemon, isFlipped, flipCard }) {
   return (
     <button
       className={`pokemon-card ${isFlipped ? "flipped" : ""}`}
-      onClick={() => flipCard(index)}
+      onClick={!isFlipped ? () => flipCard(index) : undefined}
     >
       <div className="inner">
         <div className="front">
