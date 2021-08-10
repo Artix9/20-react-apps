@@ -1,32 +1,53 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 import Tabs from "./components/Tabs";
 import AddressBar from "./components/AddressBar";
 import "./App.css";
 
-export default function App() {
-  // state up top
-  const [browsers, setBrowsers] = useState([
-    "https://en.wikipedia.org/wiki/React_(JavaScript_library)",
-    "https://en.wikipedia.org/wiki/Main_Page",
-  ]);
+function reducer(state, action) {
+  const { browsers, activeBrowser } = state;
+  const { type, payload } = action;
 
-  const [activeBrowser, setActiveBrowser] = useState(0);
-
-  function chooseBrowser(id) {
-    setActiveBrowser(id);
-  }
-
-  function addBrowser() {
+  if (type === "ADD") {
     const newBrowsers = [...browsers, ""];
-    setBrowsers(newBrowsers);
-    setActiveBrowser(newBrowsers.length - 1);
+    const activeBrowser = newBrowsers.length - 1;
+
+    return {
+      browsers: newBrowsers,
+      activeBrowser,
+    };
   }
 
-  function updateBrowser(url) {
-    const newBrowsers = [...browsers];
-    newBrowsers[activeBrowser] = url;
-    setBrowsers(newBrowsers);
+  if (type === "CHOOSE") {
+    return {
+      ...state,
+      activeBrowser: payload,
+    };
   }
+  if (type === "UPDATE") {
+    const newBrowsers = [...browsers];
+    newBrowsers[activeBrowser] = payload;
+
+    return {
+      ...state,
+      browsers: newBrowsers,
+    };
+  }
+  if (type === "CLOSE") {
+  }
+}
+
+export default function App() {
+  const [{ browsers, activeBrowser }, dispatch] = useReducer(reducer, {
+    browsers: [
+      "https://en.wikipedia.org/wiki/React_(JavaScript_library)",
+      "https://en.wikipedia.org/wiki/Main_Page",
+    ],
+    activeBrowser: 0,
+  });
+
+  const chooseBrowser = (id) => dispatch({ type: "CHOOSE", payload: id });
+  const addBrowser = () => dispatch({ type: "ADD" });
+  const updateBrowser = (url) => dispatch({ type: "UPDATE", payload: url });
 
   // formatting or grabbing of data
   const url = browsers[activeBrowser];
