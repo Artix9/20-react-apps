@@ -22,6 +22,12 @@ export default function App() {
     setActiveBrowser(newBrowsers.length - 1);
   }
 
+  function updateBrowser(url) {
+    const newBrowsers = [...browsers];
+    newBrowsers[activeBrowser] = url;
+    setBrowsers(newBrowsers);
+  }
+
   // formatting or grabbing of data
   const url = browsers[activeBrowser];
 
@@ -35,7 +41,7 @@ export default function App() {
           add={addBrowser}
         />
 
-        <AddressBar />
+        <AddressBar update={updateBrowser} url={url} />
 
         <div className="viewport">
           {url ? <iframe src={url} title="Stuff" /> : <>New Tab Page</>}
