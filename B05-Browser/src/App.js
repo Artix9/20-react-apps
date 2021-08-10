@@ -4,6 +4,7 @@ import AddressBar from "./components/AddressBar";
 import "./App.css";
 
 export default function App() {
+  // state up top
   const [browsers, setBrowsers] = useState([
     "https://en.wikipedia.org/wiki/React_(JavaScript_library)",
     "https://en.wikipedia.org/wiki/Main_Page",
@@ -11,12 +12,28 @@ export default function App() {
 
   const [activeBrowser, setActiveBrowser] = useState(0);
 
+  function chooseBrowser(id) {
+    setActiveBrowser(id);
+  }
+
+  function addBrowser() {
+    const newBrowsers = [...browsers, ""];
+    setBrowsers(newBrowsers);
+    setActiveBrowser(newBrowsers.length - 1);
+  }
+
+  // formatting or grabbing of data
   const url = browsers[activeBrowser];
 
   return (
     <div className="app">
       <div className="browser">
-        <Tabs browsers={browsers} active={activeBrowser} />
+        <Tabs
+          browsers={browsers}
+          active={activeBrowser}
+          choose={chooseBrowser}
+          add={addBrowser}
+        />
 
         <AddressBar />
 
