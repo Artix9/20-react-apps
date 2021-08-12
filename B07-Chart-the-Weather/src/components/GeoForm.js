@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useState } from "react";
-import Geocode from "react-geocode";
+import React, { useState, useEffect, useCallback } from 'react';
+import Geocode from 'react-geocode';
 
-Geocode.setApiKey("AIzaSyDp4os33WF6-4d-xFVyL0HsUUHN7dOml_w");
+Geocode.setApiKey('AIzaSyDp4os33WF6-4d-xFVyL0HsUUHN7dOml_w');
 
 // all things with address + lat+long go into a component
 export default function GeoForm({ setLatLng }) {
-  const [value, setValue] = useState("Las Vegas");
+  const [value, setValue] = useState('Las Vegas');
 
   const getLatLng = useCallback((address) => {
     Geocode.fromAddress(address).then((response) => {
