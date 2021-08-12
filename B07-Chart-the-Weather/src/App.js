@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import GeoForm from "./components/GeoForm";
 import "./App.css";
 
 // openweathermap.org
@@ -28,6 +29,7 @@ export default function App() {
   );
 }
 
-// all things with address + lat+long go into a component
-
 // all things that deal with weather api and formatting/displaying weather data go into a component
+function WeatherChart() {
+  return "weather chart";
+}
