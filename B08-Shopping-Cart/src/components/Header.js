@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import CartIcon from "../supermarket.svg";
 import useOnClickOutside from "use-onclickoutside";
 import { useCart } from "../contexts/use-cart";
+import Cart from "./Cart";
 
 export default function Header() {
   const { cart } = useCart();
@@ -26,7 +27,7 @@ export default function Header() {
             style={{ display: isOpen ? "block" : "none" }}
             ref={modalRef}
           >
-            cart goes here
+            <Cart />
           </div>
         </div>
       </div>
