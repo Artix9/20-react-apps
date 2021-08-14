@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 
 // to calculate typing speed
@@ -8,8 +8,23 @@ import "./App.css";
 const secondsToCount = 10;
 const paragraph = `Coding is the best. We are able to build something from scratch. It is literally imagination incarnate. Solving our own problems through coding is one of the coolest things we could do!`;
 
+function findTypos(str1, str2) {
+  let typos = [];
+
+  str2.split("").forEach(function (character, index) {
+    if (character !== str1.charAt(index)) typos.push(index);
+  });
+
+  return typos;
+}
+
 export default function App() {
   const [typedText, setTypedText] = useState("");
+  const [typoIndexes, setTypoIndexes] = useState([]);
+
+  useEffect(() => {
+    setTypoIndexes(findTypos(paragraph, typedText));
+  }, [typedText]);
 
   return (
     <div className="app">
@@ -29,9 +44,9 @@ export default function App() {
             const hasBeenTyped = typedText.length > index;
 
             if (hasBeenTyped) {
-              let typo = true;
-              if (typo) characterClass = "incorrect";
-              if (!typo) characterClass = "correct";
+              characterClass = typoIndexes.includes(index)
+                ? "incorrect"
+                : "correct";
             }
 
             return (
